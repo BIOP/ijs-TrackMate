@@ -36,6 +36,8 @@ Script(s) will run TrackMate to Detect and Track
 
 # ijs-Read-TrackMate-from-XmlData  
 
+Script(s) will NOT run TrackMate , but read data from the xml file. 
+
 ## ijs-Read-TrackMate-Tracks-from-XmlData-and-Make-ROIs.groovy
  
 
