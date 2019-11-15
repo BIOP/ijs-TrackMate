@@ -1,15 +1,15 @@
-#@ImagePlus(label="Selected Image") imp
-#@File(label="Select a TrackMate xml File") xmlFile_path
-#@String(label="ROI Name ", value="myFavROI") roi_name
-#@Float(label="ROI radius (in pixel)",value=10 ) roi_radius
-#@Boolean(label="Verbose", value=true) verbose
+#@ImagePlus( label="Selected Image" ) imp
+#@File( label="Select a TrackMate xml File" ) xmlFile_path
+#@String( label="ROI Name ", value="myFavROI" ) roi_name
+#@Float( label="ROI radius (in pixel)",value=10 ) roi_radius
+#@Boolean( label="Verbose", value=true ) verbose
 #@RoiManager rm
 
 /* Adapted from https://imagej.net/Scripting_TrackMate
  * and scripts by olivier.burri 
  *
  * = CODE DESCRIPTION =
- * gets settings from a TrackMate xml file, 
+ * Gets settings from a TrackMate xml file, 
  * run trackmate
  * get spots from tracks
  * adds corresponding rois (of a size roi_radius ) to the roiManager
