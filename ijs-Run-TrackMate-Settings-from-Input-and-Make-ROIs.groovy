@@ -1,13 +1,13 @@
-#@ImagePlus(label="Selected Image") imp
-#@String(label="ROI name ", value="myFavROI") roi_name
-#@String (visibility=MESSAGE, value="Some TrackMate Detection parameters", required=false) msg1
-#@Integer(label="spotRadius (in pixel)",value=10 ) spotRadius
-#@Float(label="spot Threshold",value=1.0 ) spotThr
-#@Float(label="spot Quality",value=0.1 ) spotQ
-#@String (visibility=MESSAGE, value="Some TrackMate LAPTracker parameters", required=false) msg2
-#@Integer(label="frameGap ",value=15 ) frameGap
-#@Integer(label="gapClosing",value=15 ) gapClosing
-#@Boolean(label="Verbose", value=true) verbose
+#@ImagePlus ( label="Selected Image" ) imp
+#@String ( label="ROI name ", value="myFavROI" ) roi_name
+#@String ( visibility=MESSAGE, value="Some TrackMate Detection parameters", required=false ) msg1
+#@Integer ( label="spotRadius (in pixel)",value=10 ) spotRadius
+#@Float ( label="spot Threshold",value=1.0 ) spotThr
+#@Float ( label="spot Quality",value=0.1 ) spotQ
+#@String ( visibility=MESSAGE, value="Some TrackMate LAPTracker parameters", required=false ) msg2
+#@Integer ( label="frameGap ",value=15 ) frameGap
+#@Integer ( label="gapClosing",value=15 ) gapClosing
+#@Boolean ( label="Verbose", value=true ) verbose
 #@RoiManager rm
 
 /* 
@@ -88,7 +88,7 @@ def model = new Model()
 // Prepare settings objects
 //------------------------
  def settings = new Settings()
-settings.setFrom(imp)
+settings.setFrom( imp )
 
 // Configure detector - We use the Strings for the keys
 settings.detectorFactory = new LogDetectorFactory()
@@ -102,8 +102,8 @@ settings.detectorSettings = [
 		]
 
 //Configure spot filters - Classical filter on quality
-def filter1 = new FeatureFilter('QUALITY', spotQ, true)
-settings.addSpotFilter(filter1)
+def filter1 = new FeatureFilter( 'QUALITY', spotQ, true )
+settings.addSpotFilter( filter1 )
 
 // Configure tracker
 settings.trackerFactory =  new SparseLAPTrackerFactory()
@@ -119,55 +119,55 @@ settings.trackerSettings['LINKING_MAX_DISTANCE']    = (double) gapClosing
 // Trackmate, run
 //------------------------
 println "Start of : Analysis"
-def trackmate = new TrackMate(model, settings) 
-if (trackmate.checkInput()) trackmate.process()
-println "End of :  Analysis"
+def trackmate = new TrackMate( model, settings )
+if ( trackmate.checkInput() ) trackmate.process()
+println( "End of :  Analysis" )
 
 //-----------------
 // Export Spots from Tracks as ROIs
 //-----------------
-exportTrackAsROIs(imp , model, roi_name , spotRadius )
+exportTrackAsROIs( imp , model, roi_name , spotRadius )
 
-println("Jobs Done!")
+println( "Jobs Done!" )
 
 //-----------------
 // HELPER functions
 //-----------------
 
-def void exportTrackAsROIs(ImagePlus imp , Model model, String roi_name, Float roi_radius ){
+def void exportTrackAsROIs( ImagePlus imp , Model model, String roi_name, Float roi_radius ){
 	def c_index = 1
 	def z_index = 1 
 	
 	exportTrackAsROIs( imp ,  model, roi_name, roi_radius , c_index , z_index )
 }
 
-def void exportTrackAsROIs(ImagePlus imp , Model model, String roi_name, Float roi_radius , int c_index , int z_index ){
+def void exportTrackAsROIs( ImagePlus imp , Model model, String roi_name, Float roi_radius , int c_index , int z_index ){
 	def cal = imp.getCalibration()
-	def width =  2 * cal.getRawX(roi_radius)
+	def width =  2 * cal.getRawX( roi_radius )
 
 	// iterates tracks
-	model.getTrackModel().trackIDs(true).eachWithIndex{ id , cntr ->
+	model.getTrackModel().trackIDs( true ).eachWithIndex{ id , cntr ->
 		def trackSpots = model.getTrackModel().trackSpots( id )
 		// order track's spots by frame 
 		// ( to add corresponding ROIs in order to the roiManager)
-		def sorted = new ArrayList< Spot >( trackSpots );		
+		def sorted = new ArrayList<Spot>( trackSpots );		
 		def comparator = Spot.frameComparator;
-       	Collections.sort(sorted, comparator);
+       	Collections.sort( sorted, comparator );
        	
 		sorted.each{
 			// Get the position in XY T
 			//println(it.getFeatures())
-			def x = cal.getRawX(it.getFeature("POSITION_X"))
-			def y = cal.getRawY(it.getFeature("POSITION_Y"))
+			def x = cal.getRawX( it.getFeature( "POSITION_X" ) )
+			def y = cal.getRawY( it.getFeature( "POSITION_Y" ) )
 			// no getRawT so has to do it like this ! 
-			def t = Math.round(it.getFeature("POSITION_T") / cal.frameInterval) +1
+			def t = Math.round( it.getFeature( "POSITION_T" ) / cal.frameInterval ) +1
 			
 			//Make the roi and add to manager
-			def roi = new OvalRoi(x-width/2,y-width/2,width,width)
-			def czt_position = imp.getStackIndex( c_index as int,  z_index  as int,  t  as int)
+			def roi = new OvalRoi( x-width/2, y-width/2, width, width )
+			def czt_position = imp.getStackIndex( c_index as int,  z_index  as int,  t  as int )
 			roi.setPosition( czt_position )
-			roi.setName(roi_name+" #"+(id+1)+":frame "+IJ.pad((int)t,3))
-			rm.addRoi(roi)
+			roi.setName( roi_name+" #" + (id+1) + ":frame " + IJ.pad( (int) t, 3 ) )
+			rm.addRoi( roi)
 		}	
 	}	
 }
