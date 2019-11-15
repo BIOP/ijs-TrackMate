@@ -10,53 +10,53 @@
 #@Boolean(label="Verbose", value=true) verbose
 #@RoiManager rm
 
-roi_radius = spotRadius
+/* 
+ * Adapted from https://imagej.net/Scripting_TrackMate
+ * and scripts by Olivier Burri 
 
-// Adapted from https://imagej.net/Scripting_TrackMate
-// and scripts by olivier.burri 
-
-// = CODE DESCRIPTION =
-// Runs TrackMate to detect and track
-// then gets spots from tracks, 
-// adds corresponding rois (of a size roi_radius ) to the roiManager
-// named rois after roi_name and Frame number
-// 
-// == INPUTS ==
-// an open image 
-// defined some parameters for detection and Tracking
-// 
-// == OUTPUTS ==
-// rois in the roiManager
-// 
-// = DEPENDENCIES =
-// TrackMate
-// 
-// = INSTALLATION = 
-// open script in FIJI and run
-// 
-// = AUTHOR INFORMATION =
-// Code written by Romain Guiet, Olivier Burri , EPFL - SV -PTECH - BIOP 
-// November 2019
-// 
-// = COPYRIGHT =
-// © All rights reserved. ECOLE POLYTECHNIQUE FEDERALE DE LAUSANNE, Switzerland, BioImaging And Optics Platform (BIOP), 2018
-// 
-// Licensed under the BSD-3-Clause License:
-// Redistribution and use in source and binary forms, with or without modification, are permitted provided 
-// that the following conditions are met:
-// 1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
-// 2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer 
-//    in the documentation and/or other materials provided with the distribution.
-// 3. Neither the name of the copyright holder nor the names of its contributors may be used to endorse or promote products 
-//     derived from this software without specific prior written permission.
-// 
-// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, 
-// BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. 
-// IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, 
-// EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
-// LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, 
-// STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF 
-// ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ * = CODE DESCRIPTION =
+ * Runs TrackMate to detect and track
+ * then gets spots from tracks, 
+ * adds corresponding rois (of a size spotRadius ) to the roiManager
+ * named rois after roi_name and Frame number
+ * 
+ * == INPUTS ==
+ * an open image 
+ * defined some parameters for detection and Tracking
+ * 
+ * == OUTPUTS ==
+ * rois in the roiManager
+ * 
+ * = DEPENDENCIES =
+ * TrackMate
+ * 
+ * = INSTALLATION = 
+ * open script in FIJI and run
+ * 
+ * = AUTHOR INFORMATION =
+ * Code written by Romain Guiet, Olivier Burri , EPFL - SV -PTECH - BIOP 
+ * November 2019
+ * 
+ * = COPYRIGHT =
+ * © All rights reserved. ECOLE POLYTECHNIQUE FEDERALE DE LAUSANNE, Switzerland, BioImaging And Optics Platform (BIOP), 2018
+ * 
+ * Licensed under the BSD-3-Clause License:
+ * Redistribution and use in source and binary forms, with or without modification, are permitted provided 
+ * that the following conditions are met:
+ * 1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+ * 2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer 
+ *    in the documentation and/or other materials provided with the distribution.
+ * 3. Neither the name of the copyright holder nor the names of its contributors may be used to endorse or promote products 
+ *     derived from this software without specific prior written permission.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, 
+ * BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. 
+ * IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, 
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, 
+ * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF 
+ * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+*/ 
 
 import ij.*
 import ij.IJ
@@ -79,7 +79,6 @@ import ij.plugin.frame.RoiManager
 
 rm.reset()
 
-
 //------------------------
 // Prepare model object
 //------------------------
@@ -94,7 +93,7 @@ settings.setFrom(imp)
 // Configure detector - We use the Strings for the keys
 settings.detectorFactory = new LogDetectorFactory()
 // Create and defiens all settings
-settings.detectorSettings  = settings.detectorSettings = [ 
+settings.detectorSettings = [ 
     		'DO_SUBPIXEL_LOCALIZATION': true,
     		'RADIUS': (double) spotRadius,
     		'TARGET_CHANNEL': (int) 0,
@@ -124,11 +123,10 @@ def trackmate = new TrackMate(model, settings)
 if (trackmate.checkInput()) trackmate.process()
 println "End of :  Analysis"
 
-
 //-----------------
 // Export Spots from Tracks as ROIs
 //-----------------
-exportTrackAsROIs(imp , model, roi_name , roi_radius )
+exportTrackAsROIs(imp , model, roi_name , spotRadius )
 
 println("Jobs Done!")
 
@@ -173,9 +171,3 @@ def void exportTrackAsROIs(ImagePlus imp , Model model, String roi_name, Float r
 		}	
 	}	
 }
-
-
-
-
-
-
