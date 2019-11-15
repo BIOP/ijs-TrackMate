@@ -55,11 +55,12 @@
 
 
 import ij.*
-import fiji.plugin.trackmate.*
+import ij.gui.OvalRoi
 
+import fiji.plugin.trackmate.*
 import fiji.plugin.trackmate.io.TmXmlReader
 import fiji.plugin.trackmate.providers.*
-import ij.gui.OvalRoi
+
 
 
 rm.reset()
@@ -92,7 +93,7 @@ def trackAnalyzerProvider   = new TrackAnalyzerProvider()
 reader.readSettings( settings, detectorProvider, trackerProvider, spotAnalyzerProvider, edgeAnalyzerProvider, trackAnalyzerProvider )
 
 // And we have to assign the current image, for the calibration
-settings.setFrom(imp)
+settings.setFrom( imp )
 
 //------------------------
 // Trackmate, run
@@ -154,7 +155,7 @@ def void exportTrackAsROIs( ImagePlus imp, Model model, String roi_name, Float r
 			def roi = new OvalRoi( x - width/2, y - width/2, width, width )
 			def czt_position = imp.getStackIndex( c_index, z_index,  t)
 			roi.setPosition( czt_position )
-			roi.setName( roi_name + "#" +IJ.pad( (id+1) ,3)+ ":frame " + IJ.pad( t,3 ) )
+			roi.setName( roi_name + "#" +IJ.pad( (id+1) ,3 )+ ":frame " + IJ.pad( t,3 ) )
 			rm.addRoi( roi )
 		}
 	}
