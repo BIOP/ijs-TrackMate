@@ -1,8 +1,8 @@
-#@ImagePlus(label="Selected Image") imp
-#@File(label="Select a TrackMate xml File") xmlFile_path
-#@String(label="ROI Name ", value="myFavROI") roi_name
-#@Float(label="ROI radius (in pixel)",value=10 ) roi_radius
-#@Boolean(label="Verbose", value=true) verbose
+#@ImagePlus ( label="Selected Image" ) imp
+#@File ( label="Select a TrackMate xml File" ) xmlFile_path
+#@String ( label="ROI Name ", value="myFavROI" ) roi_name
+#@Float ( label="ROI radius (in pixel)",value=10 ) roi_radius
+#@Boolean ( label="Verbose", value=true ) verbose
 #@RoiManager rm
 
 /**
@@ -71,8 +71,8 @@ if ( !reader.isReadingOk() ) sys.exit( reader.getErrorMessage() )
 //-----------------
 
 def model = reader.getModel()
-if ( verbose ) println model
-
+if ( verbose ) println ( model )
+			
 //-----------------
 // Export each track as ROIs
 //-----------------
@@ -99,7 +99,7 @@ def void exportTrackAsROIs( ImagePlus imp, Model model, String roi_name, Float r
 		
 		// order track's spots by frame 
 		// ( to add corresponding ROIs in order to the roiManager)
-		def sorted = new ArrayList< Spot >( trackSpots );		
+		def sorted = new ArrayList<Spot>( trackSpots );		
 		def comparator = Spot.frameComparator;
        	Collections.sort( sorted, comparator );
        	
