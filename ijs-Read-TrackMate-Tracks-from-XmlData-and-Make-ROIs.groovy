@@ -1,55 +1,56 @@
-#@ImagePlus(label="Selected Image") imp
-#@File(label="Select a TrackMate xml File") xmlFile_path
-#@String(label="ROI Name ", value="myFavROI") roi_name
-#@Float(label="ROI radius (in pixel)",value=10 ) roi_radius
-#@Boolean(label="Verbose", value=true) verbose
+#@ImagePlus ( label="Selected Image" ) imp
+#@File ( label="Select a TrackMate xml File" ) xmlFile_path
+#@String ( label="ROI Name ", value="myFavROI" ) roi_name
+#@Float ( label="ROI radius (in pixel)",value=10 ) roi_radius
+#@Boolean ( label="Verbose", value=true ) verbose
 #@RoiManager rm
 
-// Adapted from https://imagej.net/Scripting_TrackMate
-// and scripts by olivier.burri 
+/**
+ * Adapted from https://imagej.net/Scripting_TrackMate
+ * and scripts by olivier.burri 
 
-// = CODE DESCRIPTION =
-// gets spots from tracks from a TrackMate xml file, 
-// adds corresponding rois (of a size roi_radius ) to the roiManager
-// named rois after roi_name and Frame number
-// 
-// == INPUTS ==
-// a TrackMate xml file
-// an open image 
-// 
-// == OUTPUTS ==
-// rois in the roiManager
-// 
-// = DEPENDENCIES =
-// TrackMate
-// 
-// = INSTALLATION = 
-// open script in FIJI and run
-// 
-// = AUTHOR INFORMATION =
-// Code written by Romain Guiet, Olivier Burri , EPFL - SV -PTECH - BIOP 
-// November 2019
-// 
-// = COPYRIGHT =
-// © All rights reserved. ECOLE POLYTECHNIQUE FEDERALE DE LAUSANNE, Switzerland, BioImaging And Optics Platform (BIOP), 2018
-// 
-// Licensed under the BSD-3-Clause License:
-// Redistribution and use in source and binary forms, with or without modification, are permitted provided 
-// that the following conditions are met:
-// 1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
-// 2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer 
-//    in the documentation and/or other materials provided with the distribution.
-// 3. Neither the name of the copyright holder nor the names of its contributors may be used to endorse or promote products 
-//     derived from this software without specific prior written permission.
-// 
-// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, 
-// BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. 
-// IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, 
-// EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
-// LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, 
-// STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF 
-// ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-
+ * = CODE DESCRIPTION =
+ * gets spots from tracks from a TrackMate xml file, 
+ * adds corresponding rois (of a size roi_radius ) to the roiManager
+ * named rois after roi_name and Frame number
+ * 
+ * == INPUTS ==
+ * a TrackMate xml file
+ * an open image 
+ * 
+ * == OUTPUTS ==
+ * rois in the roiManager
+ * 
+ * = DEPENDENCIES =
+ * TrackMate
+ * 
+ * = INSTALLATION = 
+ * open script in FIJI and run
+ * 
+ * = AUTHOR INFORMATION =
+ * Code written by Romain Guiet, Olivier Burri , EPFL - SV -PTECH - BIOP 
+ * November 2019
+ * 
+ * = COPYRIGHT =
+ * © All rights reserved. ECOLE POLYTECHNIQUE FEDERALE DE LAUSANNE, Switzerland, BioImaging And Optics Platform (BIOP), 2018
+ * 
+ * Licensed under the BSD-3-Clause License:
+ * Redistribution and use in source and binary forms, with or without modification, are permitted provided 
+ * that the following conditions are met:
+ * 1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+ * 2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer 
+ *    in the documentation and/or other materials provided with the distribution.
+ * 3. Neither the name of the copyright holder nor the names of its contributors may be used to endorse or promote products 
+ *     derived from this software without specific prior written permission.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, 
+ * BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. 
+ * IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, 
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, 
+ * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF 
+ * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
 
 import ij.*
 import fiji.plugin.trackmate.*
@@ -70,8 +71,8 @@ if ( !reader.isReadingOk() ) sys.exit( reader.getErrorMessage() )
 //-----------------
 
 def model = reader.getModel()
-if ( verbose ) println model
-
+if ( verbose ) println ( model )
+			
 //-----------------
 // Export each track as ROIs
 //-----------------
@@ -98,7 +99,7 @@ def void exportTrackAsROIs( ImagePlus imp, Model model, String roi_name, Float r
 		
 		// order track's spots by frame 
 		// ( to add corresponding ROIs in order to the roiManager)
-		def sorted = new ArrayList< Spot >( trackSpots );		
+		def sorted = new ArrayList<Spot>( trackSpots );		
 		def comparator = Spot.frameComparator;
        	Collections.sort( sorted, comparator );
        	
@@ -119,4 +120,3 @@ def void exportTrackAsROIs( ImagePlus imp, Model model, String roi_name, Float r
 		}
 	}
 }
-
