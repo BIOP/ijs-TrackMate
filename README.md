@@ -32,8 +32,8 @@ User has to select a TrackMate XML file
 ## ijs-Run-TrackMate-Using-RoiManager-or-ResultsTable
 
 Will allow you to run TrackMate based on the provided settings via SciJava Parameters, but instead of using the Spot detection algorithms from Trackmate, it will use the contents of the ROI Manager to populate the centroids of spot-like objects. These will then be used for the actual tracking. 
-**NOTE:** the ROIs in the RoiManager neeed to have their **position** set so that when this script queries the frame of each ROI, it can do so using (`getPosition()`)[https://imagej.nih.gov/ij/developer/api/ij/gui/Roi.html#getPosition--].
-It can also work from a ResultsTable instead of the ROIManager.
+
+**NOTE: ** It could also work from a ResultsTable instead of the ROI Manager, but this was not thouroughly tested. Please read the notes in the code.
 
 The script saves both the Tracks as XML files and the TrackMate project, which can be reopened using `Plugins > Tracking > Load a TrackMate File...`.
 
@@ -41,11 +41,14 @@ The script saves both the Tracks as XML files and the TrackMate project, which c
 An open Image stack and an open RoiManager that contains the Rois to track. It is recommended that the image stack be saved to disk before running this script, as TrackMate will store a reference to this image when saving the XML file.
 The tracking parameters that can be set are the "Max Frame Gap", the "Link Distance", the "Max Distance" and the "Split Distance", which should be in calibrated units. The "Allow Split" options configures the LAP tracker to allow for split events. 
 
+**NOTE:** the ROIs in the RoiManager neeed to have their **position** set so that when this script queries the frame of each ROI, it can do so using [`getPosition()`](https://imagej.nih.gov/ij/developer/api/ij/gui/Roi.html#getPosition--).
+
 ### Outputs
 After running this script in its current state, you will get 
 1. An opened TrackMate instance where you can inspect and curate the tracking results
 2. The ROIs in the RoiManager renamed to reflect their associated track, frame and philogeny (if "Allow Split" was checked)
 3. Two XML files, one with the TrackMate Project and one with the Tracks results, located in the same folder as the original image.
+
 # ijs-Read-TrackMate-from-XmlData  
 
 These scripts will **NOT run TrackMate**, but read data from the xml file to perform various operations.
