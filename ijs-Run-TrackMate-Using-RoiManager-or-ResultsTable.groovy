@@ -97,7 +97,7 @@
 def roiList = rm.getRoisAsArray() as List
 
 // Example: Manipulate ROIS to change the position here if needed here
-// EG: Here we switch the T position of a roi to pat to the "regular" position
+// EG: Here we switch the T position of a roi to the "regular" position in order for TrackMate to get the Frame properly
 //def roiList = roiList.collect{ roi -> 
 //	def p = roi.getTPosition()
 //	roi.setPosition( p )
