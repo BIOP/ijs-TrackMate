@@ -17,35 +17,38 @@
  * This script uses the LAP tracker from TrackMate and allows for splitting events. 
  * This is then reflected in the names of the ROIs in the Roi Manager. 
  * 	 Each cell will have a unique number when the track is created and that name will be prepended in the daughter cells.
- *   Eg. After bing tracked for 6 frames, Cell 4 divides, 
+ *   Eg. After being tracked for 6 frames, Cell 4 divides, 
  *       the daughter cells will be called 4-1 and 4-2. 
  *       If cell 4-2 divides, its daughter cells will be named 4-2-1 and 4-2-2
  *   
  *   Graph:         
  *   ------
  *   
- *     4-1
- *     |   
- *  4 -      4-2-1
- *     \    | 
- *     4-2 -
- *    		\
- *    		 4-2-2
+ *      4-1
+ *     /   
+ *  4 -       4-2-1
+ *     \     / 
+ *      4-2 -
+ *    	     \
+ *    	      4-2-2
  *    		 
  * 
  * == INPUTS ==
- * An open image: Trackmate will keep the absolute path to this image in its settings file
+ * 1. An open image: Trackmate will keep the absolute path to this image in its settings file
  * NOTE: We recommend that the the image you are going to process has already been saved or opened from a saved location
- * WARNING: If you run this script on an image that was never saved before, when you reopen the TrackMate settings, it will be unable to link
- * the tracks to your image and will create an empty one.
- * WARNING 2: Trackmate sets the calibration from the image metatada. Make sure that your stack is defined in Frames (T) and not Slices (Z)
- * 			  User Image > Properties... to confirm this nad change it as needed.
  * 
- * The RoiManager populated with the ROIs at the right stack positions
+ * WARNING: If you run this script on an image that was never saved before, when you reopen the TrackMate settings, it will be unable to link
+ *          the tracks to your image and will create an empty one.
+ * 
+ * WARNING 2: Trackmate sets the calibration from the image metatada. Make sure that your stack is defined in Frames (T) and not Slices (Z)
+ *            User Image > Properties... to confirm this and change it as needed.
+ * 
+ * 2. The RoiManager populated with the ROIs at the right stack positions
  * NOTE: The script uses the getPosition() method from the ij.gui.Roi class to find the frame
+ * 
  * WARNING: Make sure that your ROIs were created on non-hyperstacks (Single channel 2D timelapse).
- * 		In case you have hyperstacks, you will need to modify the position of your ROIs BEFORE running the "Tracker" part of this script
- * 		so that the "Tracker" can query the frame number using the getPosition() method. See the example in the comments.
+ *          In case you have hyperstacks, you will need to modify the position of your ROIs BEFORE running the "Tracker" part of this script
+ *          so that the "Tracker" can query the frame number using the getPosition() method. See the example in the comments.
  * 
  * 
  * == OUTPUTS ==
@@ -54,7 +57,7 @@
  *
  * = DEPENDENCIES =
  * FIJI ( which bundles TrackMate )
- * Tested on TrackMate 
+ * Tested on TrackMate_-6.0.1
  * 
  * = INSTALLATION = 
  * Open the script in FIJI and hit run
