@@ -142,6 +142,10 @@ def trackmateFile = new File( fileDirectory, name + "_trackmate.xml" )
 
 tracker.export( trackmateFile )
 
+// Export ROISet As well
+def roiSetFile = new File( fileDirectory, name + "_rois.zip" )
+rm.runCommand( "Save", roiSetFile.getAbsolutePath() )
+
 println "Script Done"
 
 
