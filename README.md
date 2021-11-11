@@ -12,10 +12,10 @@ These scripts will **run TrackMate** to detect spots and track them.
 Runs Trackmate on the current image based on the user settings, and exports the detected and tracked objects as ROIs into ImageJ's Roi Manager.
 
 ### Input parameters
-<img src="https://github.com/BIOP/ijs-TrackMate/blob/master/images/1-Input-settings-to-run-TrackMate.jpg" title="Input settings" width="50%" align="center">
+<img src="https://github.com/BIOP/ijs-TrackMate/blob/legacy-v6/images/1-Input-settings-to-run-TrackMate.jpg" title="Input settings" width="50%" align="center">
 
 ### Outputs
-<img src="https://github.com/BIOP/ijs-TrackMate/blob/master/images/1-Results.PNG" title="Results" width="50%" align="center">
+<img src="https://github.com/BIOP/ijs-TrackMate/blob/legacy-v6/images/1-Results.PNG" title="Results" width="50%" align="center">
 
 ## ijs-Run-TrackMate-Settings-from-XmlData-and-Make-ROIs.groovy
 
@@ -24,10 +24,10 @@ Imports a Trackmate file (saved as an XML), and uses the detection and tracking 
 ### Input parameters
 User has to select a TrackMate XML file
 
-<img src="https://github.com/BIOP/ijs-TrackMate/blob/master/images/2-SelectXml.jpg" title="Select xml file" width="50%" align="center">
+<img src="https://github.com/BIOP/ijs-TrackMate/blob/legacy-v6/images/2-SelectXml.jpg" title="Select xml file" width="50%" align="center">
 
 ### Outputs
-<img src="https://github.com/BIOP/ijs-TrackMate/blob/master/images/1-Results.PNG" title="Results" width="50%" align="center">
+<img src="https://github.com/BIOP/ijs-TrackMate/blob/legacy-v6/images/1-Results.PNG" title="Results" width="50%" align="center">
 
 ## ijs-Run-TrackMate-Using-RoiManager-or-ResultsTable
 
@@ -59,7 +59,7 @@ Reads an existing trackmate XML file and exports the tracked objects as ROIs int
 
 ### Input Parameters
 User has to select a TrackMate XML file 
-<img src="https://github.com/BIOP/ijs-TrackMate/blob/master/images/2-SelectXml.jpg" title="Select xml file" width="50%" align="center">
+<img src="https://github.com/BIOP/ijs-TrackMate/blob/legacy-v6/images/2-SelectXml.jpg" title="Select xml file" width="50%" align="center">
 
 ### Outputs
-<img src="https://github.com/BIOP/ijs-TrackMate/blob/master/images/1-Results.PNG" title="Results" width="50%" align="center">
+<img src="https://github.com/BIOP/ijs-TrackMate/blob/legacy-v6/images/1-Results.PNG" title="Results" width="50%" align="center">
