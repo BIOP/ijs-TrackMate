@@ -41,7 +41,7 @@ The script saves both the Tracks as XML files and the TrackMate project, which c
 An open Image stack and an open RoiManager that contains the Rois to track. It is recommended that the image stack be saved to disk before running this script, as TrackMate will store a reference to this image when saving the XML file.
 The tracking parameters that can be set are the "Max Frame Gap", the "Link Distance", the "Max Distance" and the "Split Distance", which should be in calibrated units. The "Allow Split" options configures the LAP tracker to allow for split events. 
 
-**NOTE:** the ROIs in the RoiManager neeed to have their **position** set so that when this script queries the frame of each ROI, it can do so using [`getPosition()`](https://imagej.nih.gov/ij/developer/api/ij/gui/Roi.html#getPosition--).
+**NOTE:** the ROIs in the RoiManager neeed to have their **position** set so that when this script queries the frame of each ROI, it can do so using [`getPosition()`](https://imagej.nih.gov/ij/developer/api/ij/ij/gui/Roi.html#getPosition()).
 
 ### Outputs
 After running this script in its current state, you will get 
